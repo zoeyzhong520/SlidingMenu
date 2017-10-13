@@ -172,33 +172,9 @@
 		D8CA674E1F8E1B7F00F81F64 /* SlidingMenuKit */ = {
 			isa = PBXGroup;
 			children = (
-				D8CA674F1F8E1B7F00F81F64 /* Controller */,
-				D8CA67501F8E1B7F00F81F64 /* Model */,
-				D8CA67511F8E1B7F00F81F64 /* Public */,
 				D8CA67521F8E1B7F00F81F64 /* View */,
 			);
 			path = SlidingMenuKit;
-			sourceTree = "<group>";
-		};
-		D8CA674F1F8E1B7F00F81F64 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		D8CA67501F8E1B7F00F81F64 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		D8CA67511F8E1B7F00F81F64 /* Public */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Public;
 			sourceTree = "<group>";
 		};
 		D8CA67521F8E1B7F00F81F64 /* View */ = {
@@ -610,6 +586,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = SlidingMenu/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zzj.SlidingMenu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -625,6 +602,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = SlidingMenu/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zzj.SlidingMenu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
