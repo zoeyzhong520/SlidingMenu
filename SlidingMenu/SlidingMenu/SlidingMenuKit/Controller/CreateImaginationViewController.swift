@@ -185,6 +185,7 @@ extension CreateImaginationViewController {
     }
     
     @objc fileprivate func exit() {
+        self.imaginationTextView.resignFirstResponder()
         dismiss()
     }
     
