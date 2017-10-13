@@ -14,7 +14,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         view.backgroundColor = .white
-        title = "ViewController"`1erZ   xqer56
+        title = "ViewController"
         
         ///pushBtn
         let pushBtn = UIButton(type: .system)
