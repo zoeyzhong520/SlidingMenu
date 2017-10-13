@@ -80,6 +80,7 @@ extension ChapterListView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let cell = SlidingMenuHeaderViewCell.createSlidingMenuCell(tableView: tableView, atIndexPath: indexPath, model: model)
+            cell.selectionStyle = .none
             return cell
         }else{
             let cell = ChapterListTableViewCell.createChapterListCell(tableView: tableView, atIndexPath: indexPath, title: model?.chapters?[indexPath.row-1])
@@ -96,7 +97,6 @@ extension ChapterListView: UITableViewDelegate, UITableViewDataSource {
                 jumpClosure!(chapter)
             }
         }
-        
     }
 }
 

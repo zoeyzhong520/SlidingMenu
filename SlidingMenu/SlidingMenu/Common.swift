@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 //MARK: - 设备信息
 

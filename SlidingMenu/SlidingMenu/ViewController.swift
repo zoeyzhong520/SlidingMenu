@@ -18,14 +18,14 @@ class ViewController: UIViewController {
         
         ///pushBtn
         let pushBtn = UIButton(type: .system)
-        pushBtn.setTitle("Push", for: .normal)
+        pushBtn.setTitle("Present ViewController", for: .normal)
         pushBtn.frame = CGRect(x: 0, y: 100, width: screenWidth, height: 50)
         pushBtn.addTarget(self, action: #selector(pushBtnPressed), for: .touchUpInside)
         view.addSubview(pushBtn)
     }
 
     @objc fileprivate func pushBtnPressed() {
-        self.navigationController?.pushViewController(BookViewController(), animated: true)
+        self.present(BookViewController(), animated: true, completion: nil)
     }
     
     override func didReceiveMemoryWarning() {

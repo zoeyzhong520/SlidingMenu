@@ -27,6 +27,8 @@
 		D898569B1F904C13009EFDA6 /* Kingfisher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D89856611F904BF0009EFDA6 /* Kingfisher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D898569E1F904C60009EFDA6 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CA675F1F8E20F500F81F64 /* SnapKit.framework */; };
 		D898569F1F904C60009EFDA6 /* SnapKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D8CA675F1F8E20F500F81F64 /* SnapKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D89856BB1F905039009EFDA6 /* ChaptersData.json in Resources */ = {isa = PBXBuildFile; fileRef = D89856B91F905038009EFDA6 /* ChaptersData.json */; };
+		D89856BC1F905039009EFDA6 /* NotesData.json in Resources */ = {isa = PBXBuildFile; fileRef = D89856BA1F905038009EFDA6 /* NotesData.json */; };
 		D8CA67211F8E1B6000F81F64 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CA67201F8E1B6000F81F64 /* AppDelegate.swift */; };
 		D8CA67231F8E1B6000F81F64 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CA67221F8E1B6000F81F64 /* ViewController.swift */; };
 		D8CA67261F8E1B6000F81F64 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8CA67241F8E1B6000F81F64 /* Main.storyboard */; };
@@ -259,6 +261,8 @@
 		D898564A1F904B7D009EFDA6 /* NoteListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteListView.swift; sourceTree = "<group>"; };
 		D89856511F904BEF009EFDA6 /* Kingfisher.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Kingfisher.xcodeproj; path = "Kingfisher-master/Kingfisher.xcodeproj"; sourceTree = "<group>"; };
 		D898567A1F904BF7009EFDA6 /* SwiftyJSON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftyJSON.xcodeproj; path = "SwiftyJSON-master/SwiftyJSON.xcodeproj"; sourceTree = "<group>"; };
+		D89856B91F905038009EFDA6 /* ChaptersData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ChaptersData.json; sourceTree = "<group>"; };
+		D89856BA1F905038009EFDA6 /* NotesData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NotesData.json; sourceTree = "<group>"; };
 		D8CA671D1F8E1B6000F81F64 /* SlidingMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlidingMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8CA67201F8E1B6000F81F64 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D8CA67221F8E1B6000F81F64 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -337,13 +341,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		D89856411F904B65009EFDA6 /* Public */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Public;
-			sourceTree = "<group>";
-		};
 		D89856521F904BEF009EFDA6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -377,6 +374,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		D89856B81F905038009EFDA6 /* JSONData */ = {
+			isa = PBXGroup;
+			children = (
+				D89856B91F905038009EFDA6 /* ChaptersData.json */,
+				D89856BA1F905038009EFDA6 /* NotesData.json */,
+			);
+			path = JSONData;
+			sourceTree = "<group>";
+		};
 		D8CA67141F8E1B6000F81F64 = {
 			isa = PBXGroup;
 			children = (
@@ -405,6 +411,7 @@
 		D8CA671F1F8E1B6000F81F64 /* SlidingMenu */ = {
 			isa = PBXGroup;
 			children = (
+				D89856B81F905038009EFDA6 /* JSONData */,
 				D89856351F904B59009EFDA6 /* UILabel+Util.swift */,
 				D89856381F904B59009EFDA6 /* UITextView+Util.swift */,
 				D8CA67531F8E1B8000F81F64 /* Common.swift */,
@@ -443,7 +450,6 @@
 			children = (
 				D898563B1F904B64009EFDA6 /* Controller */,
 				D898563D1F904B64009EFDA6 /* Model */,
-				D89856411F904B65009EFDA6 /* Public */,
 				D8CA67521F8E1B7F00F81F64 /* View */,
 			);
 			path = SlidingMenuKit;
@@ -760,8 +766,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8CA672B1F8E1B6000F81F64 /* LaunchScreen.storyboard in Resources */,
+				D89856BB1F905039009EFDA6 /* ChaptersData.json in Resources */,
 				D8CA67281F8E1B6000F81F64 /* Assets.xcassets in Resources */,
 				D8CA67261F8E1B6000F81F64 /* Main.storyboard in Resources */,
+				D89856BC1F905039009EFDA6 /* NotesData.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -203,7 +203,7 @@ extension BottomMenuView {
     }
     
     //MARK: 移除从上向底部弹下去的UIView（包含遮罩）
-    @objc fileprivate func disMissView() {
+    @objc func disMissView() {
         
         contentView?.frame = CGRect(x: 0, y: screenHeight - ContentViewHeight, width: screenWidth, height: ContentViewHeight)
         

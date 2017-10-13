@@ -79,9 +79,11 @@ extension NoteListView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let cell = SlidingMenuHeaderViewCell.createSlidingMenuCell(tableView: tableView, atIndexPath: indexPath, model: model)
+            cell.selectionStyle = .none
             return cell
         }else{
             let cell = NoteListTableViewCell.createNoteListCell(tableView: tableView, atIndexPath: indexPath, model: model?.notes?[indexPath.row-1])
+            cell.selectionStyle = .none
             return cell
         }
     }
@@ -95,6 +97,22 @@ extension NoteListView: UITableViewDelegate, UITableViewDataSource {
                 jumpClosure!(note)
             }
         }
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            if indexPath.row > 0 {
+                model?.notes?.remove(at: indexPath.row-1)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if indexPath.row > 0 {
+            return true
+        }
+        return false
     }
 }
 

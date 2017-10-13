@@ -58,18 +58,36 @@ class BookViewController: UIViewController {
             
             self.slidingMenuView?.chapterListView.jumpClosure = { [weak self] chapter in
                 self?.slidingMenuView?.disMissView()
+                self?.bottomMenuView?.disMissView()
                 printLog(message: chapter)
             }
             
             self.slidingMenuView?.noteListView.jumpClosure = { [weak self] note in
                 self?.slidingMenuView?.disMissView()
+                self?.bottomMenuView?.disMissView()
                 printLog(message: note)
+                
+                let vc = CreateImaginationViewController()
+                
+                let model = CreateImaginationModel()
+                model.bookName = "灰姑娘"
+                model.selectedContent = note
+                vc.model = model
+                
+                self?.present(vc, animated: true, completion: nil)
             }
         }
         
         self.bottomMenuView?.createImaginationClosure = {
             let vc = CreateImaginationViewController()
-            vc.createImaginationType = .WithNoSelectedContent
+            
+            let model = CreateImaginationModel()
+            model.bookName = "灰姑娘"
+            model.note = ""
+            //model.selectedContent = "尽管遭受残忍的折磨，艾拉还是决心坚持母亲的遗言，“勇敢而善良地活下去”，因此她不向绝望投降，也不仇恨虐待她的人。"
+            model.selectedContent = "勇敢而善良地活下去"
+            vc.model = model
+            
             self.present(vc, animated: true, completion: nil)
         }
         
@@ -98,17 +116,6 @@ class BookViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }
 

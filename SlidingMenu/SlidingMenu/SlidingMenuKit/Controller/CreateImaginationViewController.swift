@@ -16,20 +16,22 @@ enum CreateImaginationType: Int {
 
 class CreateImaginationViewController: UIViewController {
     
-    var createImaginationType:CreateImaginationType?
+    fileprivate var createImaginationType:CreateImaginationType?
     var model:CreateImaginationModel?
     
     ///Create imaginationTextView
-    var imaginationTextView:UITextView!
+    fileprivate var imaginationTextView:UITextView!
     ///ImaginationTextViewHeight
-    var ImaginationTextViewHeight = fontSizeScale(200)
+    fileprivate var ImaginationTextViewHeight = fontSizeScale(200)
     
     ///PlaceHolderLabel
-    var placeHolderLabel:UILabel?
+    fileprivate var placeHolderLabel:UILabel?
     
     ///ContentLabel
-    var contentLabel:UILabel?
+    fileprivate var contentLabel:UILabel!
     
+    ///bottomMenuView
+    fileprivate var bottomMenuView:UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +46,7 @@ class CreateImaginationViewController: UIViewController {
     
 }
 
-
+//MARK: - UI
 extension CreateImaginationViewController {
     ///UI
     fileprivate func createView() {
@@ -105,37 +107,71 @@ extension CreateImaginationViewController {
             make.left.right.equalTo(self.view)
         }
         
-        
+        setupContentLabel()
+        setupQuoteLabel()
+        setupBottomMenuView()
     }
     
     ///Setup ContentLabel.
     fileprivate func setupContentLabel() {
         let contentLabel = UILabel()
         contentLabel.text = model?.selectedContent
-        contentLabel.font = zzj_SystemFontWithSize(12)
+        contentLabel.font = zzj_SystemFontWithSize(13)
         contentLabel.textColor = UIColor.lightGray
         contentLabel.textAlignment = .left
         contentLabel.numberOfLines = 2
         view.addSubview(contentLabel)
         self.contentLabel = contentLabel
         contentLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(imaginationTextView.snp.bottom).offset(fontSizeScale(1))
+            if self.model == nil {
+                make.top.equalTo(imaginationTextView.snp.bottom).offset(fontSizeScale(1))
+            }else if self.model?.selectedContent?.isEmpty == false {
+                make.top.equalTo(imaginationTextView.snp.bottom).offset(fontSizeScale(6))
+            }else{
+                make.top.equalTo(imaginationTextView.snp.bottom).offset(fontSizeScale(1))
+            }
+            
             make.left.equalTo(self.view).offset(fontSizeScale(10))
             make.right.equalTo(self.view).offset(-fontSizeScale(10))
             
-            let height = UILabel.getHeightByWidth(title: contentLabel.text, width: view.bounds.size.width - fontSizeScale(20), font: zzj_SystemFontWithSize(12))
-            
-            printLog(message: height)
-            
-            make.height.equalTo(height)
+            let height = UILabel.getHeightByWidth(title: contentLabel.text, width: view.bounds.size.width - fontSizeScale(20), font: zzj_SystemFontWithSize(13))
+            print(height)
+            if height >= 47.0 {
+                make.height.equalTo(47.0)
+            }else{
+                make.height.equalTo(height)
+            }
         }
     }
     
     ///Setup quoteLabel.
     fileprivate func setupQuoteLabel() {
+        let lineView = UIView()
+        lineView.backgroundColor = UIColor.lightGray
+        view.addSubview(lineView)
+        lineView.snp.makeConstraints { (make) in
+            if self.model == nil {
+                make.top.equalTo(self.contentLabel.snp.bottom)
+                lineView.backgroundColor = UIColor.clear
+            }else if self.model?.bookName?.isEmpty == false {
+                make.top.equalTo(self.contentLabel.snp.bottom).offset(fontSizeScale(5))
+            }else{
+                make.top.equalTo(self.contentLabel.snp.bottom)
+                lineView.backgroundColor = UIColor.clear
+            }
+            make.left.right.equalTo(self.view)
+            make.height.equalTo(fontSizeScale(1))
+        }
+        
         let quoteLabel = UILabel()
-        guard let bookName = model?.bookName else { return }
-        quoteLabel.text = "引自" + " " + bookName
+        if self.model == nil {
+            quoteLabel.text = "引自"
+        }else if self.model?.bookName?.isEmpty == false {
+            guard let bookName = model?.bookName else { return }
+            quoteLabel.text = "引自" + " " + bookName
+        }else{
+            quoteLabel.text = "引自"
+        }
         quoteLabel.textColor = UIColor.gray
         quoteLabel.font = zzj_SystemFontWithSize(14)
         quoteLabel.textAlignment = .left
@@ -144,23 +180,99 @@ extension CreateImaginationViewController {
             make.left.equalTo(self.view).offset(fontSizeScale(10))
             make.right.equalTo(self.view).offset(-fontSizeScale(10))
             make.height.equalTo(fontSizeScale(14))
-            
-            if (model?.selectedContent?.isEmpty)! || self.createImaginationType == .WithNoSelectedContent {
-                //没有选中的文字
-                make.top.equalTo(imaginationTextView.snp.bottom).offset(fontSizeScale(1))
-            }else{
-                
-                
-            }
+            make.top.equalTo(lineView.snp.bottom).offset(fontSizeScale(10))
         }
     }
     
     @objc fileprivate func exit() {
+        dismiss()
+    }
+    
+    ///Setup bottomMenuView.
+    fileprivate func setupBottomMenuView() {
+        bottomMenuView = UIView()
+        bottomMenuView.backgroundColor = UIColor.white
+        view.addSubview(bottomMenuView)
+        bottomMenuView.snp.makeConstraints { (make) in
+            make.left.right.bottom.equalTo(self.view)
+            make.height.equalTo(tabbarHeight)
+        }
+        
+        ///Line view.
+        let lineView = UIView()
+        lineView.backgroundColor = UIColor.lightGray
+        bottomMenuView.addSubview(lineView)
+        lineView.snp.makeConstraints { (make) in
+            make.left.right.top.equalTo(bottomMenuView)
+            make.height.equalTo(fontSizeScale(1))
+        }
+        
+        ///Close btn.
+        let closeBtn = UIButton()
+        closeBtn.setTitle("×", for: .normal)
+        closeBtn.setTitleColor(UIColor.black, for: .normal)
+        closeBtn.tag = 100
+        closeBtn.addTarget(self, action: #selector(bottomMenuViewClick(btn:)), for: .touchUpInside)
+        bottomMenuView.addSubview(closeBtn)
+        closeBtn.snp.makeConstraints { (make) in
+            make.centerY.equalTo(bottomMenuView)
+            make.left.equalTo(bottomMenuView).offset(fontSizeScale(10))
+            make.width.height.equalTo(navigationBarHeight)
+        }
+        
+        ///Reaease btn.
+        let releaseBtn = UIButton()
+        releaseBtn.setTitle("发布", for: .normal)
+        releaseBtn.setTitleColor(UIColor.black, for: .normal)
+        releaseBtn.tag = 101
+        releaseBtn.addTarget(self, action: #selector(bottomMenuViewClick(btn:)), for: .touchUpInside)
+        bottomMenuView.addSubview(releaseBtn)
+        releaseBtn.snp.makeConstraints { (make) in
+            make.center.equalTo(bottomMenuView)
+            make.width.height.equalTo(navigationBarHeight)
+        }
+        
+        ///Confirm btn.
+        let confirmBtn = UIButton()
+        confirmBtn.setTitle("√", for: .normal)
+        confirmBtn.setTitleColor(UIColor.black, for: .normal)
+        confirmBtn.tag = 102
+        confirmBtn.addTarget(self, action: #selector(bottomMenuViewClick(btn:)), for: .touchUpInside)
+        bottomMenuView.addSubview(confirmBtn)
+        confirmBtn.snp.makeConstraints { (make) in
+            make.centerY.equalTo(bottomMenuView)
+            make.right.equalTo(bottomMenuView).offset(-fontSizeScale(10))
+            make.width.height.equalTo(navigationBarHeight)
+        }
+    }
+    
+    @objc fileprivate func bottomMenuViewClick(btn: UIButton) {
+        if btn.tag == 100 {
+            setupAlertController()
+        }else if btn.tag == 101 {
+            dismiss()
+        }else if btn.tag == 102 {
+            dismiss()
+        }
+    }
+    
+    ///Setup AlertController.
+    fileprivate func setupAlertController() {
+        let alertCtrl = UIAlertController(title: "提示", message: "确定退出编辑吗？", preferredStyle: .alert)
+        alertCtrl.addAction(UIAlertAction(title: "是", style: .default, handler: { (action) in
+            self.dismiss()
+        }))
+        alertCtrl.addAction(UIAlertAction(title: "否", style: .default, handler: nil))
+        self.present(alertCtrl, animated: true, completion: nil)
+    }
+    
+    ///Dissmiss void.
+    fileprivate func dismiss() {
         self.dismiss(animated: true, completion: nil)
     }
 }
 
-//MARK: UITextViewDelegate
+//MARK: - UITextViewDelegate
 extension CreateImaginationViewController: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
